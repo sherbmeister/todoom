@@ -1,0 +1,13 @@
+{
+  "name": "quantumnet/todoom",
+  "description": "Self-hosted todo list app with users, admins, email confirmation, and TOTP 2FA.",
+  "type": "project",
+  "require": {
+    "php": ">=8.2",
+    "bacon/bacon-qr-code": "^3.0"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true
+  }
+}
