@@ -62,6 +62,10 @@ def main():
         from gi.repository import Gtk, Gio, GLib, WebKit2, Notify, JavaScriptCore
     except (ImportError, ValueError):
         sys.exit('Missing GTK/WebKit/libnotify libraries. See README.md for installation instructions.')
+    # GTK 3 uses the program name as the Wayland app_id. It must match the
+    # desktop filename so Plasma can find the icon, including after tray restore.
+    GLib.set_prgname(APP_ID)
+    GLib.set_application_name('Todoom')
     AppIndicator = None
     for namespace in ('AyatanaAppIndicator3', 'AppIndicator3'):
         try:
@@ -95,7 +99,6 @@ def main():
                 return
             Gtk.Window.set_default_icon_name(ICON_NAME)
             self.window = Gtk.ApplicationWindow(application=self, title='Todoom')
-            self.window.set_wmclass(APP_ID, APP_ID)
             self.window.connect('delete-event', self.close_window)
             self.window.set_default_size(1150, 800)
             self.window.set_icon_from_file(str(ASSETS / 'todoom.svg'))
