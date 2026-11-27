@@ -1,7 +1,4 @@
-.app-coffee-support{display:flex;justify-content:center;align-items:center;flex:0 0 auto;width:100%;box-sizing:border-box;padding:6px 0 0;margin:0}
-.app-coffee-support .app-coffee-button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:32px;box-sizing:border-box;padding:6px 12px;border:1px solid #d8ad57;border-radius:999px;background:#ffe2a1;color:#3d2b13;font-family:inherit;font-size:12px;font-weight:650;line-height:1.3;letter-spacing:normal;text-decoration:none;white-space:nowrap;box-shadow:0 2px 5px #0000000d;transition:background .15s,box-shadow .15s}
-.app-coffee-support .app-coffee-button:hover{background:#ffda87;color:#3d2b13;text-decoration:none;box-shadow:0 3px 8px #00000018}
-.app-coffee-support .app-coffee-button:focus-visible{outline:3px solid #a66b12;outline-offset:3px}
-.app-coffee-support .app-coffee-cup{font-size:16px;line-height:1}
-.footer:has(.app-coffee-support){display:flex}
-@media(max-width:760px){body:has(.mobile-bottom-nav,.mobile-tabbar) footer:has(.app-coffee-support){padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}}
+a.app-coffee-button{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;gap:5px;min-height:28px;box-sizing:border-box;padding:4px 10px;border:1px solid #d8ad57;border-radius:999px;background:#ffe2a1;color:#3d2b13;font-family:inherit;font-size:12px;font-weight:650;line-height:1.3;letter-spacing:normal;text-decoration:none;white-space:nowrap;box-shadow:0 1px 3px #0000000d}
+a.app-coffee-button:hover{background:#ffda87;color:#3d2b13;text-decoration:none}
+a.app-coffee-button:focus-visible{outline:2px solid #a66b12;outline-offset:3px}
+a.app-coffee-button .app-coffee-cup{font-size:15px;line-height:1}

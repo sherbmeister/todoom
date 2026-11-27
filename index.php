@@ -16,8 +16,8 @@ session_start();
 
 const APP_NAME = 'Todoom';
 // Change the release ID and date once per deployed update; sync_release advances the visible version.
-const APP_RELEASE_ID = '20261127-footer-support';
-const INITIAL_APP_VERSION = '1.22';
+const APP_RELEASE_ID = '20261127-inline-footer-fix';
+const INITIAL_APP_VERSION = '1.23';
 const APP_RELEASE_DATE = '27/11/2026';
 const DB_FILE = __DIR__ . '/storage/todoom.sqlite';
 const COLORS = ['#0e9f7d', '#2563eb', '#e4a100', '#dc2626', '#7c3aed', '#db2777', '#0891b2', '#65a30d', '#f97316', '#4f46e5', '#64748b', '#a16207'];
@@ -717,7 +717,7 @@ function layout(string $title, string $content): void
     $languageOptions = select_options($languages, $language);
     $mobileLock = $u && (int) ($u['mobile_biometric_enabled'] ?? 0) === 1 ? ' data-mobile-session-lock data-mobile-lock-csrf="' . h(csrf()) . '"' : '';
     echo '<!doctype html><html lang="' . h($language) . '"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">';
-    echo '<title>' . h($title) . ' - ' . APP_NAME . '</title><link rel="icon" href="assets/icon.svg"><link rel="stylesheet" href="assets/style.css?v=20260812-mobile-archive-shortcuts"></head><body data-theme="' . h($theme) . '"' . $mobileLock . '>';
+    echo '<title>' . h($title) . ' - ' . APP_NAME . '</title><link rel="icon" href="assets/icon.svg"><link rel="stylesheet" href="assets/style.css?v=20260812-mobile-archive-shortcuts"><link rel="stylesheet" href="assets/support.css?v=20261127-inline4"></head><body data-theme="' . h($theme) . '"' . $mobileLock . '>';
     echo '<div class="shell"><header class="topbar"><a class="brand" href="?"><img src="assets/icon.svg" alt=""><span>' . APP_NAME . '</span></a><nav class="nav">';
     if ($u) echo '<a href="?">Dashboard</a><a href="?a=calendar">Calendar</a><a href="?a=task-new">New task</a><a href="?a=list-new">New list</a>';
     if ($u) {
@@ -728,12 +728,13 @@ function layout(string $title, string $content): void
         if (setting('allow_registration', '1') === '1') echo '<a href="?a=register">Register</a>';
     }
     $mobileBottomNav = $u ? '<nav class="mobile-bottom-nav" aria-label="Mobile navigation"><a href="?"><span>Home</span></a><a href="?a=calendar"><span>Calendar</span></a><a class="bottom-add" href="?a=task-new" aria-label="New task">+</a><a href="#mobile-lists"><span>Lists</span></a><a href="?a=profile"><span>Settings</span></a></nav>' : '';
-    echo '</nav></header><main class="wrap">' . (flash() ?? '') . $content . '</main>' . $mobileBottomNav . '<footer class="footer"><button class="footer-brand version-opener" type="button" data-version-log-open><img src="assets/icon.svg" alt=""><span>&copy; 2026 Todoom v' . h(setting('app_version', INITIAL_APP_VERSION)) . '</span></button><p><a href="mailto:mariuserbanica@proton.me">mariuserbanica@proton.me</a> <span>&middot;</span> <a href="https://mariusserbanica.co.uk/" target="_blank" rel="noopener noreferrer">mariusserbanica.co.uk</a></p>' . app_coffee_support_html('Todoom') . '</footer></div>' . changelog_html() . '<script src="assets/i18n.js?v=20260807-admin-order"></script><script src="assets/app.js?v=20260810-update-headsup"></script></body></html>';
+    echo '</nav></header><main class="wrap">' . (flash() ?? '') . $content . '</main>' . $mobileBottomNav . '<footer class="footer"><button class="footer-brand version-opener" type="button" data-version-log-open><img src="assets/icon.svg" alt=""><span>&copy; 2026 Todoom v' . h(setting('app_version', INITIAL_APP_VERSION)) . '</span></button><p><a href="mailto:mariuserbanica@proton.me">mariuserbanica@proton.me</a> <span>&middot;</span> <a href="https://mariusserbanica.co.uk/" target="_blank" rel="noopener noreferrer">mariusserbanica.co.uk</a> <span aria-hidden="true">&middot;</span> ' . app_coffee_support_html('Todoom') . '</p></footer></div>' . changelog_html() . '<script src="assets/i18n.js?v=20260807-admin-order"></script><script src="assets/app.js?v=20260810-update-headsup"></script></body></html>';
 }
 
 function changelog_html(): string
 {
     return '<dialog class="version-dialog" data-version-log aria-labelledby="version-log-title"><div class="version-dialog-shell"><header class="version-dialog-header"><div><p class="version-kicker">Todoom</p><h2 id="version-log-title">Release History</h2></div><button class="icon-button" type="button" data-version-log-close aria-label="Close version history" title="Close">&times;</button></header><div class="release-list">'
+        . '<article class="release-entry"><div class="release-heading"><h3>v1.23</h3><time datetime="2026-11-27">27/11/2026</time></div><section class="release-group fixed"><h4>Fixed</h4><ul><li>Restored original footer layouts and placed the compact coffee link alongside the existing footer links.</li><li>Removed support-button overrides that changed footer display and spacing.</li></ul></section></article>'
         . '<article class="release-entry"><div class="release-heading"><h3>v1.22</h3><time datetime="2026-11-27">27/11/2026</time></div><section class="release-group added"><h4>Added</h4><ul><li>Optional Buy me a coffee link for supporting Todoom development through PayPal.</li></ul></section><section class="release-group patched"><h4>Patched</h4><ul><li>Support button is smaller and sits inside the footer on desktop and mobile.</li></ul></section></article>'
         . '<article class="release-entry"><div class="release-heading"><h3>v1.21</h3><time datetime="2026-08-12">12/08/2026</time></div><section class="release-group patched"><h4>Patched</h4><ul><li>Removed mobile Archive shortcuts so archived lists are reached from the user dropdown only.</li></ul></section></article>'
         . '<article class="release-entry"><div class="release-heading"><h3>v1.20</h3><time datetime="2026-08-12">12/08/2026</time></div><section class="release-group patched"><h4>Patched</h4><ul><li>Dashboard totals now include tasks from archived lists.</li><li>Archived lists can be opened directly to view their tasks while remaining hidden from active task views.</li></ul></section></article>'
