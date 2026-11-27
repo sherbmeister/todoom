@@ -1,6 +1,6 @@
 <?php
 /** Shared, dependency-free donation link for web and packaged clients. */
-function app_coffee_support_html(string $appName, string $stylesheet = 'assets/support.css?v=20261127'): string
+function app_coffee_support_html(string $appName, string $stylesheet = 'assets/support.css?v=20261127-footer2'): string
 {
     $url = 'https://www.paypal.com/donate/?' . http_build_query([
         'business' => 'mariusnicolaeserbanica@gmail.com',
