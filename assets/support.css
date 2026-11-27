@@ -2,3 +2,4 @@ a.app-coffee-button{display:inline-flex;align-items:center;justify-content:cente
 a.app-coffee-button:hover{background:#ffda87;color:#3d2b13;text-decoration:none}
 a.app-coffee-button:focus-visible{outline:2px solid #a66b12;outline-offset:3px}
 a.app-coffee-button .app-coffee-cup{font-size:15px;line-height:1}
+.app-coffee-footer-line{padding-top:4px;text-align:center}
