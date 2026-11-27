@@ -16,8 +16,8 @@ session_start();
 
 const APP_NAME = 'Todoom';
 // Change the release ID and date once per deployed update; sync_release advances the visible version.
-const APP_RELEASE_ID = '20261127-footer-support-line';
-const INITIAL_APP_VERSION = '1.24';
+const APP_RELEASE_ID = '20261127-preferences-support';
+const INITIAL_APP_VERSION = '1.25';
 const APP_RELEASE_DATE = '27/11/2026';
 const DB_FILE = __DIR__ . '/storage/todoom.sqlite';
 const COLORS = ['#0e9f7d', '#2563eb', '#e4a100', '#dc2626', '#7c3aed', '#db2777', '#0891b2', '#65a30d', '#f97316', '#4f46e5', '#64748b', '#a16207'];
@@ -734,6 +734,7 @@ function layout(string $title, string $content): void
 function changelog_html(): string
 {
     return '<dialog class="version-dialog" data-version-log aria-labelledby="version-log-title"><div class="version-dialog-shell"><header class="version-dialog-header"><div><p class="version-kicker">Todoom</p><h2 id="version-log-title">Release History</h2></div><button class="icon-button" type="button" data-version-log-close aria-label="Close version history" title="Close">&times;</button></header><div class="release-list">'
+        . '<article class="release-entry"><div class="release-heading"><h3>v1.25</h3><time datetime="2026-11-27">27/11/2026</time></div><section class="release-group added"><h4>Added</h4><ul><li>Optional support link in Preferences, accessible in the mobile app even when its footer is hidden.</li></ul></section></article>'
         . '<article class="release-entry"><div class="release-heading"><h3>v1.24</h3><time datetime="2026-11-27">27/11/2026</time></div><section class="release-group patched"><h4>Patched</h4><ul><li>Placed the small coffee button on its own line beneath the existing footer content.</li></ul></section></article>'
         . '<article class="release-entry"><div class="release-heading"><h3>v1.23</h3><time datetime="2026-11-27">27/11/2026</time></div><section class="release-group fixed"><h4>Fixed</h4><ul><li>Restored original footer layouts and placed the compact coffee link alongside the existing footer links.</li><li>Removed support-button overrides that changed footer display and spacing.</li></ul></section></article>'
         . '<article class="release-entry"><div class="release-heading"><h3>v1.22</h3><time datetime="2026-11-27">27/11/2026</time></div><section class="release-group added"><h4>Added</h4><ul><li>Optional Buy me a coffee link for supporting Todoom development through PayPal.</li></ul></section><section class="release-group patched"><h4>Patched</h4><ul><li>Support button is smaller and sits inside the footer on desktop and mobile.</li></ul></section></article>'
@@ -1722,7 +1723,8 @@ function profile(): void
     $password = '<h2>Password</h2><form method="post" class="form-grid"><input type="hidden" name="csrf" value="' . h(csrf()) . '"><input type="hidden" name="account_action" value="password"><div class="form-row"><label>Current password</label><input type="password" name="current_password" autocomplete="current-password" required></div><div class="inline-grid"><div class="form-row"><label>New password</label><input type="password" name="new_password" minlength="10" autocomplete="new-password" required data-password-check>' . password_help() . '</div><div class="form-row"><label>Confirm new password</label><input type="password" name="confirm_password" minlength="10" autocomplete="new-password" required></div></div><button>Change password</button></form>';
     $twofa = (int) $u['twofa_enabled'] === 1 ? '<span class="pill">Enabled</span><form method="post" action="?a=disable-2fa" class="btn-row"><input type="hidden" name="csrf" value="' . h(csrf()) . '"><button class="danger">Disable 2FA</button></form>' : '<span class="pill">Disabled</span><a class="btn" href="?a=enable-2fa">Enable 2FA</a>';
     $biometric = '<h2>Mobile Fingerprint Login</h2><p class="muted">Use fingerprint or device unlock when opening the installed Todoom Android app. After one password login, this device can unlock with fingerprint for up to 30 days unless you sign out.</p><form method="post" class="form-grid biometric-settings"><input type="hidden" name="csrf" value="' . h(csrf()) . '"><input type="hidden" name="account_action" value="mobile_biometric"><label class="checkbox-line"><input type="checkbox" name="mobile_biometric_enabled" value="1" ' . ((int) ($u['mobile_biometric_enabled'] ?? 0) === 1 ? 'checked' : '') . '> Allow mobile fingerprint login</label><div class="form-row"><label>Current password</label><input type="password" name="current_password" autocomplete="current-password" required></div><button>Save fingerprint setting</button></form>';
-    layout('Profile', '<section class="panel panel-pad"><h1>User Settings</h1>' . $settings . '<hr class="divider">' . $email . '<hr class="divider">' . $username . '<hr class="divider">' . $password . '<hr class="divider"><h2>Two-Factor Authentication</h2><div class="btn-row">' . $twofa . '</div><hr class="divider">' . $biometric . '</section>');
+    $support = '<section class="preference-support" aria-label="Support Todoom"><h2>Support Todoom</h2><p class="muted">If Todoom is useful to you, you can support its development with an optional PayPal donation.</p>' . app_coffee_support_html('Todoom') . '</section>';
+    layout('Profile', '<section class="panel panel-pad"><h1>User Settings</h1>' . $settings . '<hr class="divider">' . $support . '<hr class="divider">' . $email . '<hr class="divider">' . $username . '<hr class="divider">' . $password . '<hr class="divider"><h2>Two-Factor Authentication</h2><div class="btn-row">' . $twofa . '</div><hr class="divider">' . $biometric . '</section>');
 }
 function enable_2fa(): void
 {
