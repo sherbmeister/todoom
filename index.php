@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/support.php';
 
 use BaconQrCode\Renderer\Image\SvgImageBackEnd;
 use BaconQrCode\Renderer\ImageRenderer;
@@ -727,7 +728,7 @@ function layout(string $title, string $content): void
         if (setting('allow_registration', '1') === '1') echo '<a href="?a=register">Register</a>';
     }
     $mobileBottomNav = $u ? '<nav class="mobile-bottom-nav" aria-label="Mobile navigation"><a href="?"><span>Home</span></a><a href="?a=calendar"><span>Calendar</span></a><a class="bottom-add" href="?a=task-new" aria-label="New task">+</a><a href="#mobile-lists"><span>Lists</span></a><a href="?a=profile"><span>Settings</span></a></nav>' : '';
-    echo '</nav></header><main class="wrap">' . (flash() ?? '') . $content . '</main>' . $mobileBottomNav . '<footer class="footer"><button class="footer-brand version-opener" type="button" data-version-log-open><img src="assets/icon.svg" alt=""><span>&copy; 2026 Todoom v' . h(setting('app_version', INITIAL_APP_VERSION)) . '</span></button><p><a href="mailto:mariuserbanica@proton.me">mariuserbanica@proton.me</a> <span>&middot;</span> <a href="https://mariusserbanica.co.uk/" target="_blank" rel="noopener noreferrer">mariusserbanica.co.uk</a></p></footer></div>' . changelog_html() . '<script src="assets/i18n.js?v=20260807-admin-order"></script><script src="assets/app.js?v=20260810-update-headsup"></script></body></html>';
+    echo '</nav></header><main class="wrap">' . (flash() ?? '') . $content . '</main>' . $mobileBottomNav . '' . app_coffee_support_html('Todoom') . '<footer class="footer"><button class="footer-brand version-opener" type="button" data-version-log-open><img src="assets/icon.svg" alt=""><span>&copy; 2026 Todoom v' . h(setting('app_version', INITIAL_APP_VERSION)) . '</span></button><p><a href="mailto:mariuserbanica@proton.me">mariuserbanica@proton.me</a> <span>&middot;</span> <a href="https://mariusserbanica.co.uk/" target="_blank" rel="noopener noreferrer">mariusserbanica.co.uk</a></p></footer></div>' . changelog_html() . '<script src="assets/i18n.js?v=20260807-admin-order"></script><script src="assets/app.js?v=20260810-update-headsup"></script></body></html>';
 }
 
 function changelog_html(): string
